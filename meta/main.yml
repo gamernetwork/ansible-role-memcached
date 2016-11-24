@@ -13,6 +13,9 @@ galaxy_info:
     - name: Debian
       versions:
         - jessie
-  categories: database
+  galaxy_tags:
+    - database
+    - memcache
+    - memcached
 
 dependencies: []
