@@ -1,0 +1,42 @@
+[Unit]
+Description={{ memcached_instance }} instance
+After=network.target
+
+[Service]
+Type=simple
+User={{ memcached_user }}
+PIDFile={{ memcached_pid_file }}
+RuntimeDirectory={{ memcached_instance }}
+
+ExecStart={{ memcached_binary }}
+{%- if memcached_unix_socket is defined %} -s {{ memcached_unix_socket }}{% endif -%}
+{%- if memcached_unix_socket_perms is defined %} -a {{ memcached_unix_socket_perms }}{% endif -%}
+{%- if memcached_listen_address is defined %} -l {{ memcached_listen_address }}{% endif %}
+ -P {{ memcached_pid_file }} -u {{ memcached_user }}
+{%- if memcached_memory is defined %} -m {{ memcached_memory }}{% endif -%}
+{%- if memcached_maxconn is defined %} -c {{ memcached_maxconn }}{% endif -%}
+{%- if memcached_seq_reqs is defined %} -R {{ memcached_seq_reqs }}{% endif -%}
+{%- if memcached_lock_down_paged_memory %} -k {% endif -%}
+{%- if memcached_listen_port_tcp is defined %} -p {{ memcached_listen_port_tcp }}{% endif -%}
+{%- if memcached_listen_port_udp is defined %} -U {{ memcached_listen_port_udp }}{% endif -%}
+{%- if memcached_oom_error %} -M {% endif -%}
+{%- if memcached_max_core_file %} -r {% endif -%}
+{%- if memcached_chunk_factor is defined %} -f {{ memcached_chunk_factor }}{% endif -%}
+{%- if memcached_min_key_size is defined %} -n {{ memcached_min_key_size }}{% endif -%}
+{%- if memcached_disable_cas %} -C {% endif -%}
+{%- if memcached_verbosity is defined %} -{{ memcached_verbosity }}{% endif -%}
+{%- if memcached_slab_page_size is defined %} -I {{ memcached_slab_page_size }}{% endif -%}
+{%- if memcached_threads is defined %} -t {{ memcached_threads }}{% endif -%}
+{%- if memcached_delimiter is defined %} -D "{{ memcached_delimiter }}"{% endif -%}
+{%- if memcached_large_pages %} -L {% endif -%}
+{%- if memcached_proto is defined %} -B {{ memcached_proto }} {% endif -%}
+{%- if memcached_experimental_options is defined %} -o {{ memcached_experimental_options }}{% endif %}
+
+
+Restart=always
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

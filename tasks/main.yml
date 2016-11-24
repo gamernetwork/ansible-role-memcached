@@ -1,0 +1,10 @@
+---
+
+- include: init.yml
+  tags: always
+
+- include: install.yml
+  tags: memcached_install
+
+- include: instance.yml
+  tags: memcached_instance

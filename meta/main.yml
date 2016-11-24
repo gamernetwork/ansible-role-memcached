@@ -1,0 +1,18 @@
+---
+
+galaxy_info:
+  author: Geoff Wright
+  description: Install memcached and configure memcached instances
+  company: Gamer Network Ltd.
+  license: GPLv3
+  min_ansible_version: 2.2
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+    - name: Debian
+      versions:
+        - jessie
+  categories: database
+
+dependencies: []

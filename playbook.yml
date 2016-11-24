@@ -1,0 +1,13 @@
+---
+
+- name: "Deploy test memcached role"
+  hosts: all
+  roles:
+
+    - name: "Memcached role"
+      role: gamernetwork.memcached
+      memcached_instance: memcached
+      memcached_listen_address: 127.0.0.2
+      memcached_listen_port_tcp: 11212
+      memcached_user: nobody
+      memcached_listen_port_udp: 11212

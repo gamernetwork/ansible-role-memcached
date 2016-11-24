@@ -1,0 +1,18 @@
+---
+
+- name: "Fail if non Debian based distro"
+  fail: msg="Only Debian based distros are supported by this role"
+  when: ansible_os_family != "Debian"
+
+- name: stat proc 1
+  stat:
+    path: "/proc/1/exe"
+  register: init_proc
+
+- name: set init_system fact
+  set_fact:
+    init_system: "{{ init_proc.stat.lnk_source | basename }}"
+
+- name: "Fail is we don't have systemd"
+  fail: msg="Only systemd based distros are supported by this role"
+  when: init_system != "systemd"

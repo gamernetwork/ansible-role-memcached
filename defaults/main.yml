@@ -1,0 +1,25 @@
+---
+
+memcached_instance: memcached
+
+memcached_packages:
+- memcached
+
+memcached_binary: /usr/bin/memcached
+
+memcached_install_state: installed
+memcached_instance_state: started
+memcached_instance_enabled: yes
+
+memcached_service_src: memcached.service.j2
+
+memcached_user: memcache
+
+memcached_pid_file: "/run/{{ memcached_instance }}/{{ memcached_instance }}.pid"
+
+# cli flag defaults required by service template
+memcached_lock_down_paged_memory: False
+memcached_oom_error: False
+memcached_max_core_file: False
+memcached_disable_cas: False
+memcached_large_pages: False

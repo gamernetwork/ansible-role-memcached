@@ -1,0 +1,19 @@
+---
+
+- name: memcached systemd service
+  template:
+    src: "{{ memcached_service_src }}"
+    dest: "/etc/systemd/system/{{ memcached_instance }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - restart memcached instance
+
+- meta: flush_handlers
+
+- name: set memcached instance status
+  systemd:
+    name: "{{ memcached_instance }}"
+    state: "{{ memcached_instance_state }}"
+    enabled: "{{ memcached_instance_enabled }}"

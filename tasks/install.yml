@@ -1,0 +1,36 @@
+---
+
+- block:
+
+  - name: use policy-rc.d to prevent start up after install
+    copy:
+      content: |
+          #!/bin/sh
+          exit 101
+      dest: /usr/sbin/policy-rc.d
+      owner: root
+      group: root
+      mode: 0755
+    changed_when: False
+
+  - name: memcached install
+    apt:
+      name: "{{ item }}"
+      state: "{{ memcached_install_state }}"
+    with_items: "{{ memcached_packages }}"
+
+  - name: remove default files
+    file:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+    - /etc/init.d/memcached
+    - /etc/default/memcached
+    - /etc/memcached.conf
+
+  always:
+  - name: clean up policy-rc.d
+    file:
+      path: /usr/sbin/policy-rc.d
+      state: absent
+    changed_when: False

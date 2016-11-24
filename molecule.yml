@@ -1,0 +1,40 @@
+---
+
+ansible:
+  raw_env_vars:
+    ANSIBLE_CONFIG: ansible.cfg
+
+molecule:
+  verbose: yes
+  ignore_paths:
+    - .git
+    - .ansible
+    - .vagrant
+    - .molecule
+
+vagrant:
+  platforms:
+
+    - name: jessie64
+      box: debian/jessie64
+    - name: xenial64
+      box: gamernetwork/xenial64
+
+  providers:
+    - name: virtualbox
+      type: virtualbox
+      options:
+        memory: 512
+        cpus: 2
+      raw_config_args:
+      - "customize '.', '/vagrant', disabled: true"
+
+  instances:
+    - name: role-memcached
+      options:
+          append_platform_to_hostname: yes
+
+  raw_config_args:
+    - "vm.synced_folder '.', '/vagrant', disabled: true"
+    - ssh.insert_key = false
+    - ssh.private_key_path = "~/.vagrant.d/insecure_private_key"

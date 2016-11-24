@@ -1,0 +1,10 @@
+*.swp
+*.swo
+*~
+*.pyc
+*.log
+.vagrant
+.molecule
+.cache
+__pycache__
+*.retry
