@@ -1,5 +1,7 @@
 ---
 
+memcached_cache_valid_time: 3600
+
 memcached_instance: memcached
 
 memcached_packages:

@@ -17,6 +17,8 @@
     apt:
       name: "{{ item }}"
       state: "{{ memcached_install_state }}"
+      update_cache: True
+      cache_valid_time: "{{ memcached_cache_valid_time }}"
     with_items: "{{ memcached_packages }}"
 
   - name: remove default files
