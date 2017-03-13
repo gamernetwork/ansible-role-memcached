@@ -26,13 +26,11 @@ vagrant:
       options:
         memory: 512
         cpus: 2
-      raw_config_args:
-      - "customize '.', '/vagrant', disabled: true"
 
   instances:
     - name: role-memcached
       options:
-          append_platform_to_hostname: yes
+        append_platform_to_hostname: yes
 
   raw_config_args:
     - "vm.synced_folder '.', '/vagrant', disabled: true"
